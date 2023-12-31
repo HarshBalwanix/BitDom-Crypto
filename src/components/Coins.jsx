@@ -7,18 +7,19 @@ import Header from "./Header";
 const Coins = () => {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
-
+  const [currency, setCurrency] = useState("usd");
+  const currencySymbol = currency === "inr" ? "₹" : "$";
   useEffect(() => {
     const getCoinsData = async () => {
       const { data } = await axios.get(
-        `${BaseUrl}/coins/markets?vs_currency=inr`
+        `${BaseUrl}/coins/markets?vs_currency=${currency}`
       );
       console.log(data);
       setCoins(data);
       setLoading(false);
     };
     getCoinsData();
-  }, []);
+  }, [currency]);
   return (
     <>
       {loading ? (
@@ -26,31 +27,71 @@ const Coins = () => {
       ) : (
         <>
           <Header />
+          <div className="btns ml-48">
+            <button
+              className="bg-orange-500 h-8 w-20 ml-7 border-none rounded-xl mt-14"
+              onClick={() => {
+                setCurrency("usd");
+              }}
+            >
+              USD
+            </button>
+            <button
+              className="bg-orange-500 h-8 w-20 ml-7 border-none rounded-xl mt-14"
+              onClick={() => {
+                setCurrency("inr");
+              }}
+            >
+              INR
+            </button>
+          </div>
+
           <div>
             {coins.map((item, i) => {
               return (
-                <div
-                  key={i}
-                  className="ex-coins flex items-center justify-evenly mt-20"
-                >
-                  <div className="image flex items-center justify-between">
-                    <img src={item.image} width={"70px"} alt="loading error" />
-                    <div className="name w-60 ml-2 ">{item.name}</div>
-                  </div>
-                  <div className="price w-20 ">
-                    {item.current_price.toFixed(2)}
-                  </div>
-                  <div className="Percent24hr w-20">
-                    {item.price_change_percentage_24h}
-                  </div>
-                  <div className="marketcap w-20">{item.market_cap}</div>
-                </div>
+                <CoinCard
+                  coindata={item}
+                  i={i}
+                  currencySymbol={currencySymbol}
+                />
               );
             })}
           </div>
         </>
       )}
     </>
+  );
+};
+
+const CoinCard = ({ coindata, i, currencySymbol }) => {
+  const profit = coindata.price_change_percentage_24h > 0;
+  return (
+    <div
+      key={i}
+      className="ex-coins flex items-center justify-evenly mt-20 text-xl font-bold"
+    >
+      <div className="image flex items-center justify-between">
+        <img src={coindata.image} width={"70px"} alt="loading error" />
+        <div className="name w-60 ml-2 ">{coindata.name}</div>
+      </div>
+      <div className="price w-28 ">
+        {currencySymbol}
+        {coindata.current_price.toFixed(2)}
+      </div>
+      <div
+        style={profit ? { color: "#0FCB80" } : { color: "red" }}
+        className="Percent24hr w-28"
+      >
+        {profit
+          ? "+" + coindata.price_change_percentage_24h.toFixed(2)
+          : coindata.price_change_percentage_24h.toFixed(2)}
+        {"%"}
+      </div>
+      <div className="marketcap w-28">
+        {currencySymbol}
+        {coindata.market_cap}
+      </div>
+    </div>
   );
 };
 
