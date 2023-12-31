@@ -29,7 +29,10 @@ const Exchanges = () => {
           <div>
             {exchanges.map((item, i) => {
               return (
-                <div className="ex-cards flex items-center justify-evenly mt-20">
+                <div
+                  key={i}
+                  className="ex-cards flex items-center justify-evenly mt-20"
+                >
                   <div className="image">
                     <img src={item.image} height={"80px"} alt="loading error" />
                   </div>
