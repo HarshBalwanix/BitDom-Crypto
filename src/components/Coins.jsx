@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BaseUrl } from "./baseurl";
 import Loader from "./Loader";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 const Coins = () => {
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,7 @@ const Coins = () => {
               return (
                 <CoinCard
                   coindata={item}
+                  id={item.id}
                   i={i}
                   currencySymbol={currencySymbol}
                 />
@@ -63,35 +65,37 @@ const Coins = () => {
   );
 };
 
-const CoinCard = ({ coindata, i, currencySymbol }) => {
+const CoinCard = ({ coindata, i, currencySymbol, id }) => {
   const profit = coindata.price_change_percentage_24h > 0;
   return (
-    <div
-      key={i}
-      className="ex-coins flex items-center justify-evenly mt-20 text-xl font-bold"
-    >
-      <div className="image flex items-center justify-between">
-        <img src={coindata.image} width={"70px"} alt="loading error" />
-        <div className="name w-60 ml-2 ">{coindata.name}</div>
-      </div>
-      <div className="price w-28 ">
-        {currencySymbol}
-        {coindata.current_price.toFixed(2)}
-      </div>
+    <Link to={`/coins/${id}`}>
       <div
-        style={profit ? { color: "#0FCB80" } : { color: "red" }}
-        className="Percent24hr w-28"
+        key={i}
+        className="ex-coins flex items-center justify-evenly mt-20 text-xl font-bold"
       >
-        {profit
-          ? "+" + coindata.price_change_percentage_24h.toFixed(2)
-          : coindata.price_change_percentage_24h.toFixed(2)}
-        {"%"}
+        <div className="image flex items-center justify-between">
+          <img src={coindata.image} width={"70px"} alt="loading error" />
+          <div className="name w-60 ml-2 ">{coindata.name}</div>
+        </div>
+        <div className="price w-28 ">
+          {currencySymbol}
+          {coindata.current_price.toFixed(2)}
+        </div>
+        <div
+          style={profit ? { color: "#0FCB80" } : { color: "red" }}
+          className="Percent24hr w-28"
+        >
+          {profit
+            ? "+" + coindata.price_change_percentage_24h.toFixed(2)
+            : coindata.price_change_percentage_24h.toFixed(2)}
+          {"%"}
+        </div>
+        <div className="marketcap w-28">
+          {currencySymbol}
+          {coindata.market_cap}
+        </div>
       </div>
-      <div className="marketcap w-28">
-        {currencySymbol}
-        {coindata.market_cap}
-      </div>
-    </div>
+    </Link>
   );
 };
 
