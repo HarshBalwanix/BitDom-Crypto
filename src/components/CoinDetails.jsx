@@ -12,6 +12,8 @@ const CoinDetails = () => {
   const [coin, setCoin] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const [currency, setCurrency] = useState("inr");
+  const currencySymbol = currency === "inr" ? "₹" : "$";
   const profit = coin.market_data?.price_change_percentage_24h > 0;
   useEffect(() => {
     const getCoin = async () => {
@@ -36,12 +38,33 @@ const CoinDetails = () => {
           <>
             <div className="coindetail pt-12 pl-28">
               <div className="coininfo">
-                <div className="time font-bold">{coin.last_updated}</div>
+                <div className="btns">
+                  <button
+                    className="bg-orange-500 h-8 w-20 ml-2 border-none rounded-xl mb-5 "
+                    onClick={() => {
+                      setCurrency("usd");
+                    }}
+                  >
+                    USD
+                  </button>
+                  <button
+                    className="bg-orange-500 h-8 w-20 ml-5 border-none rounded-xl mb-5"
+                    onClick={() => {
+                      setCurrency("inr");
+                    }}
+                  >
+                    INR
+                  </button>
+                </div>
+                <div className="time font-bold">
+                  {"Last updated : "}
+                  {coin.last_updated}
+                </div>
                 <div className="coinimage">
                   <img
                     className="mt-16"
                     src={coin.image.large}
-                    width={"120px"}
+                    width={"150px"}
                     alt=""
                   />
                 </div>
@@ -49,7 +72,8 @@ const CoinDetails = () => {
                   {coin.name}
                 </div>
                 <div className="coinprice font-bold mt-3 text-xl">
-                  {"₹"} {coin.market_data.current_price["inr"]}
+                  {currencySymbol}
+                  {coin.market_data.current_price[currency]}
                 </div>
                 <div className="coinprofit mt-3 ml-2 flex items-center ">
                   {profit ? (
@@ -65,7 +89,7 @@ const CoinDetails = () => {
                   {coin.market_cap_rank}
                 </div>
                 <div className="coindesc w-80">
-                  <p className="mt-8">{coin.description["en"].split(".")[0]}</p>
+                  <p className="mt-5">{coin.description["en"].split(".")[0]}</p>
                 </div>
               </div>
             </div>
