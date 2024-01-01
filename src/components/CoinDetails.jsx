@@ -7,6 +7,7 @@ import axios from "axios";
 import { IoPulseOutline } from "react-icons/io5";
 // import coinImg from "../coinImg.png";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
+import CoinChart from "./CoinChart";
 
 const CoinDetails = () => {
   const [coin, setCoin] = useState([]);
@@ -36,7 +37,7 @@ const CoinDetails = () => {
           <Loader />
         ) : (
           <>
-            <div className="coindetail pt-12 pl-28">
+            <div className="coindetail pt-12 pl-28 flex justify-evenly">
               <div className="coininfo">
                 <div className="btns">
                   <button
@@ -92,6 +93,7 @@ const CoinDetails = () => {
                   <p className="mt-5">{coin.description["en"].split(".")[0]}</p>
                 </div>
               </div>
+              <CoinChart />
             </div>
           </>
         )}
