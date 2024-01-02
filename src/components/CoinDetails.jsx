@@ -38,7 +38,7 @@ const CoinDetails = () => {
         ) : (
           <>
             <div className="coindetail pt-12 pl-28 flex justify-evenly">
-              <div className="coininfo">
+              <div className="coininfo ">
                 <div className="btns">
                   <button
                     className="bg-orange-500 h-8 w-20 ml-2 border-none rounded-xl mb-5 "
@@ -93,7 +93,7 @@ const CoinDetails = () => {
                   <p className="mt-5">{coin.description["en"].split(".")[0]}</p>
                 </div>
               </div>
-              <CoinChart />
+              <CoinChart currency={currency} />
             </div>
           </>
         )}

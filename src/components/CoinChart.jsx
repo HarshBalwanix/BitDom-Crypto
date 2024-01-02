@@ -14,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import Loader from "./Loader";
 
 ChartJS.register(
   CategoryScale,
@@ -25,14 +26,14 @@ ChartJS.register(
   Legend
 );
 
-const CoinChart = () => {
+const CoinChart = ({ currency }) => {
   const [chartData, setChartData] = useState([]);
   const { id } = useParams();
   const [days, setDays] = useState(1);
   const CoinChartdata = async () => {
     try {
       const { data } = await axios.get(
-        `${BaseUrl}/coins/${id}/market_chart?vs_currency=inr&days=${days}`
+        `${BaseUrl}/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`
       );
       setChartData(data.prices);
       console.log(data.prices);
@@ -43,7 +44,7 @@ const CoinChart = () => {
 
   useEffect(() => {
     CoinChartdata();
-  }, []);
+  }, [currency, id, days]);
 
   const myData = {
     labels: chartData.map((value) => {
@@ -56,7 +57,7 @@ const CoinChart = () => {
     }),
     datasets: [
       {
-        labels: `Price in Past Days ${days}`,
+        label: ` Price in Past ${days} Days  in ${currency}`,
         data: chartData.map((value) => value[1]),
         borderColor: "orange",
         borderWidth: "3",
@@ -65,21 +66,51 @@ const CoinChart = () => {
   };
 
   return (
-    <div>
-      {
-        <Line
-          data={myData}
-          options={{
-            elements: {
-              point: {
-                radius: 1,
+    <>
+      {chartData.length === 0 ? (
+        <Loader />
+      ) : (
+        <div>
+          <Line
+            data={myData}
+            options={{
+              elements: {
+                point: {
+                  radius: 1,
+                },
               },
-            },
-          }}
-          style={{ marginTop: "5rem" }}
-        />
-      }
-    </div>
+            }}
+            style={{ marginTop: "5rem", width: "60rem" }}
+          />
+          <div className="btns mt-7">
+            <button
+              className="bg-orange-500 h-8 w-20 ml-2 border-none rounded-xl mb-5 "
+              onClick={() => {
+                setDays("1");
+              }}
+            >
+              24 hrs
+            </button>
+            <button
+              className="bg-orange-500 h-8 w-20 ml-2 border-none rounded-xl mb-5 "
+              onClick={() => {
+                setDays("30");
+              }}
+            >
+              1 Month
+            </button>
+            <button
+              className="bg-orange-500 h-8 w-20 ml-5 border-none rounded-xl mb-5"
+              onClick={() => {
+                setDays("365");
+              }}
+            >
+              1 Year
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
