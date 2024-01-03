@@ -9,6 +9,7 @@ const Coins = () => {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
   const [currency, setCurrency] = useState("usd");
+  const [search, setSearch] = useState("");
   const currencySymbol = currency === "inr" ? "₹" : "$";
   useEffect(() => {
     const getCoinsData = async () => {
@@ -28,6 +29,21 @@ const Coins = () => {
       ) : (
         <>
           <Header />
+          <div className="searchbar h-8 w-80 text-black ">
+            <input
+              type="text"
+              placeholder="     Search Coin"
+              style={{
+                position: "absolute",
+                top: "3.5%",
+                left: "25%",
+                paddingLeft: "5px",
+              }}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            />
+          </div>
           <div className="btns ml-48">
             <button
               className="bg-orange-500 h-8 w-20 ml-7 border-none rounded-xl mt-14"
@@ -48,16 +64,26 @@ const Coins = () => {
           </div>
 
           <div>
-            {coins.map((item, i) => {
-              return (
-                <CoinCard
-                  coindata={item}
-                  id={item.id}
-                  i={i}
-                  currencySymbol={currencySymbol}
-                />
-              );
-            })}
+            {coins
+              .filter((data) => {
+                if (data === "") {
+                  return data;
+                } else if (
+                  data.name.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return data;
+                }
+              })
+              .map((item, i) => {
+                return (
+                  <CoinCard
+                    coindata={item}
+                    id={item.id}
+                    i={i}
+                    currencySymbol={currencySymbol}
+                  />
+                );
+              })}
           </div>
         </>
       )}
