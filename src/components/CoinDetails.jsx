@@ -36,7 +36,7 @@ const CoinDetails = () => {
           <Loader />
         ) : (
           <>
-            <div className="coindetail pt-12 sm:pl-28 sm:flex sm:justify-evenly flex flex-col pl-7">
+            <div className="coindetail  pt-12   pl-7 sm:pl-28 flex flex-col sm:flex-row sm:justify-evenly ">
               <div className="coininfo ">
                 <div className="btns">
                   <button
