@@ -7,6 +7,7 @@ import axios from "axios";
 import { IoPulseOutline } from "react-icons/io5";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import CoinChart from "./CoinChart";
+import Header from "./Header";
 
 const CoinDetails = () => {
   const [coin, setCoin] = useState([]);
@@ -36,6 +37,7 @@ const CoinDetails = () => {
           <Loader />
         ) : (
           <>
+            <Header />
             <div className="coindetail  pt-12   pl-7 sm:pl-28 flex flex-col sm:flex-row sm:justify-evenly ">
               <div className="coininfo ">
                 <div className="btns">
