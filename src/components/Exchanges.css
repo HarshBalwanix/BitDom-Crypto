@@ -1,0 +1,22 @@
+@media only screen and (max-width: 600px) {
+  .image img {
+    height: 50px;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
+  .name {
+    font-size: 15px;
+    width: 10rem;
+  }
+  .price {
+    font-size: 15px;
+    width: 10rem;
+  }
+  .rank {
+    font-size: 15px;
+  }
+  .ex-cards {
+    display: flex;
+    justify-content: space-between;
+  }
+}
