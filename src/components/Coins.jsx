@@ -29,22 +29,16 @@ const Coins = () => {
       ) : (
         <>
           <Header />
-          <div className="searchbar h-8 w-80 text-black ">
+          <div className="searchbar h-8  w-80   text-black absolute top-16 left-3 sm:top-5  sm:left-1/4  pl-2 ">
             <input
               type="text"
               placeholder="     Search Coin"
-              style={{
-                position: "absolute",
-                top: "3.5%",
-                left: "25%",
-                paddingLeft: "5px",
-              }}
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
             />
           </div>
-          <div className="btns ml-48">
+          <div className="btns ml-2 sm:ml-48">
             <button
               className="bg-orange-500 h-8 w-20 ml-7 border-none rounded-xl mt-14"
               onClick={() => {
