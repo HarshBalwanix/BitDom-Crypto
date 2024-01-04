@@ -20,7 +20,11 @@ const Header = () => {
           </Link>
         </li>
         <li>
-          <Link className="ml-60 text-xl" to="/join">
+          <Link
+            className="ml-60 text-xl"
+            to="https://www.linkedin.com/company/blockchain-club-vitb/mycompany"
+            target="_blank"
+          >
             Join Us
           </Link>
         </li>

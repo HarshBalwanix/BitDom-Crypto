@@ -4,6 +4,8 @@ import axios from "axios";
 import { BaseUrl } from "./baseurl";
 import { useState } from "react";
 import Loader from "./Loader";
+import OurModel from "./OurModel";
+
 // import coin from "../coin.png";
 
 const Exchanges = () => {
@@ -13,7 +15,7 @@ const Exchanges = () => {
   useEffect(() => {
     const getExchangesData = async () => {
       const { data } = await axios.get(`${BaseUrl}/exchanges`);
-      console.log(data);
+      // console.log(data);
       setExchanges(data);
       setLoading(false);
     };
@@ -26,6 +28,7 @@ const Exchanges = () => {
       ) : (
         <>
           <Header />
+          <OurModel />
           <div>
             {exchanges.map((item, i) => {
               return (
