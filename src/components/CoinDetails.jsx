@@ -5,7 +5,6 @@ import { BaseUrl } from "./baseurl";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { IoPulseOutline } from "react-icons/io5";
-// import coinImg from "../coinImg.png";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import CoinChart from "./CoinChart";
 
@@ -37,7 +36,7 @@ const CoinDetails = () => {
           <Loader />
         ) : (
           <>
-            <div className="coindetail pt-12 pl-28 flex justify-evenly">
+            <div className="coindetail pt-12 sm:pl-28 sm:flex sm:justify-evenly flex flex-col pl-7">
               <div className="coininfo ">
                 <div className="btns">
                   <button
