@@ -91,26 +91,28 @@ const CoinCard = ({ coindata, i, currencySymbol, id }) => {
     <Link to={`/coins/${id}`}>
       <div
         key={i}
-        className="ex-coins flex items-center justify-evenly mt-20 text-xl font-bold"
+        className="ex-coins flex items-center justify-evenly sm:mt-20 sm:text-xl sm:font-bold"
       >
-        <div className="image flex items-center justify-between">
-          <img src={coindata.image} width={"70px"} alt="loading error" />
-          <div className="name w-60 ml-2 ">{coindata.name}</div>
+        <div className="image flex items-center justify-between h-12 w-8 sm:h-12 sm:w-16">
+          <img src={coindata.image} alt="loading error" />
+          <div className="name text-sm w-30 sm:w-60 sm:ml-2 sm:text-xl ">
+            {coindata.name}
+          </div>
         </div>
-        <div className="price w-28 ">
+        <div className="price ml-20 w-30 text-sm sm:w-28 sm:text-xl ">
           {currencySymbol}
           {coindata.current_price.toFixed(2)}
         </div>
         <div
           style={profit ? { color: "#0FCB80" } : { color: "red" }}
-          className="Percent24hr w-28"
+          className="Percent24hr w-20 text-sm sm:w-28 sm:text-xl"
         >
           {profit
             ? "+" + coindata.price_change_percentage_24h.toFixed(2)
             : coindata.price_change_percentage_24h.toFixed(2)}
           {"%"}
         </div>
-        <div className="marketcap w-28">
+        <div className="marketcap w-40 text-sm sm:w-28 sm:text-xl ">
           {currencySymbol}
           {coindata.market_cap}
         </div>
