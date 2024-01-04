@@ -34,16 +34,20 @@ const Exchanges = () => {
               return (
                 <div
                   key={i}
-                  className="ex-cards flex items-center justify-evenly mt-20 text-xl font-bold"
+                  className="ex-cards flex items-center justify-evenly sm:mt-20 sm:text-xl sm:font-bold"
                 >
-                  <div className="image">
-                    <img src={item.image} height={"80px"} alt="loading error" />
+                  <div className="image h-12 ml-10 mr-5">
+                    <img src={item.image} alt="loading error" />
                   </div>
-                  <div className="name w-28">{item.name}</div>
-                  <div className="price w-28">
+                  <div className="name w-40 text-sm sm:w-28 sm:text-xl">
+                    {item.name}
+                  </div>
+                  <div className="price w-40 text-sm sm:w-28 sm:text-xl">
                     {item.trade_volume_24h_btc.toFixed(2)}
                   </div>
-                  <div className="rank w-28">{item.trust_score_rank}</div>
+                  <div className="rank w-28 text-sm sm:text-xl ">
+                    {item.trust_score_rank}
+                  </div>
                 </div>
               );
             })}
